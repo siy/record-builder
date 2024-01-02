@@ -15,13 +15,8 @@
  */
 package io.soabase.recordbuilder.core;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 import javax.lang.model.element.Modifier;
+import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
@@ -320,5 +315,19 @@ public @interface RecordBuilder {
         RecordBuilder.Options options();
 
         boolean asRecordInterface() default false;
+    }
+
+    /**
+     * Apply to record components to specify a field initializer for the generated builder
+     */
+    @Retention(RetentionPolicy.CLASS)
+    @Target(ElementType.FIELD)
+    @Inherited
+    @interface Initializer {
+        /**
+         * The name of a public static method or a public static final field in the source record to use as the
+         * initializer
+         */
+        String value();
     }
 }
